@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit_tax_summary_5614" inherit_id="l10n_ar.report_invoice_document">
+        <xpath expr="//div[@id='total']" position="after">
+            <t t-if="o.l10n_latam_document_type_id.l10n_ar_letter == 'B'">
+                <div style="border: 1px solid #dee2e6; padding: 10px; margin-top: 20px; margin-bottom: 20px; border-radius: 4px; max-width: 400px;">
+                    <h4 style="font-size: 11px; margin-top: 10px; margin-bottom: 10px;">
+                        Régimen de Transparencia Fiscal al Consumidor (Ley 27.743)
+                    </h4>
+                    <table class="table table-sm" style="font-size: 10px; width: auto; margin-left: 0; margin-right: auto;">
+                        <thead>
+                            <tr>
+                                <th style="padding-right: 20px;">Impuesto</th>
+                                <th>Importe</th>
+                            </tr>
+                        </thead>
+                        <t t-set="tax_totals" t-value="o._l10n_ar_get_invoice_totals_for_report_5614()"/>
+                        <tbody>
+                            <t t-foreach="tax_totals['groups_by_subtotal'].items()" t-as="group_item">
+                                <t t-foreach="group_item[1]" t-as="tax_line">
+                                    <tr>
+                                        <td style="padding-right: 20px;">
+                                            <t t-esc="tax_line['tax_group_name']"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="tax_line['formatted_tax_group_amount']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,8 @@
+{
+    "python.languageServer": "None",
+    "DockerRun.DisableDockerrc": true,
+    "DockerRun.Containers": [
+        "ed59a0bf37e0",
+        "2f8f4665b082"
+    ]
+}
