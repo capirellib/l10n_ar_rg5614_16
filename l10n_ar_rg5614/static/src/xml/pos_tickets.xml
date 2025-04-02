@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <template id="OrderReceipt_inherit" inherit_id="l10n_ar_pos_einvoice_ticket.OrderReceipt">
+            <xpath expr="//div[@class='pos-receipt-amount receipt-change']" position="after">
+                <t t-if="env.pos.get_order().invoice_letter == 'B'">
+                    <div class="tax-details" style="border-top: 1px solid #dee2e6; margin-top: 10px; padding-top: 10px;">
+                        <h4 style="font-size: 10px; margin-bottom: 5px;">Regimen de Transparencia Fiscal al Consumidor (Ley 27.743)</h4>
+                        <table style="font-size: 10px; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left;">Descripción</th>
+                                    <th style="text-align: right;">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="receipt.tax_details" t-as="tax">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="tax.name"/>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <t t-esc="env.pos.format_currency_no_symbol(tax.amount)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

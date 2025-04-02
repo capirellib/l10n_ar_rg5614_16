@@ -8,14 +8,13 @@
     "author": "Carlos Esteban Pirelli - BettaErp",
     "website": "",
     "category": "Localizacion",
-    "depends": ["account", "l10n_ar"],
-    "data": [
-        
-        "views/report_invoice_views.xml"
-    ],
+    "depends": ["account", "l10n_ar", "l10n_ar_pos_einvoice_ticket"],
+    "data": ["views/report_invoice_views.xml"],
     "assets": {
         "web.assets_backend": [],
-        "web.assets_qweb": [],
+        "web.assets_qweb": [
+            "l10n_ar_5614_ee/static/src/xml/pos_ticket.xml",
+        ],
     },
     "application": False,
     "installable": True,
