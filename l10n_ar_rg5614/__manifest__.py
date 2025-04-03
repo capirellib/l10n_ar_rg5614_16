@@ -8,7 +8,7 @@
     "author": "Carlos Esteban Pirelli - BettaErp",
     "website": "",
     "category": "Localizacion",
-    "depends": ["account", "l10n_ar", "l10n_ar_pos_einvoice_ticket"],
+    "depends": ["account", "l10n_ar", "l10n_ar_pos_einvoice_ticket", "point_of_sale"],
     "data": ["views/report_invoice_views.xml"],
     "assets": {
         "web.assets_backend": [],
