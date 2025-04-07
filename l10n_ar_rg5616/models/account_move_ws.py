@@ -4,6 +4,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 from datetime import datetime
 import logging
+import pprint
 
 _logger = logging.getLogger(__name__)
 
@@ -12,6 +13,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def wsfe_pyafipws_create_invoice(self, ws, invoice_info):
+        
         ws.CrearFactura(
             invoice_info["concepto"],
             invoice_info["tipo_doc"],
@@ -32,8 +34,8 @@ class AccountMove(models.Model):
             invoice_info["fecha_serv_hasta"],
             invoice_info["moneda_id"],
             invoice_info["moneda_ctz"],
-            cancela_misma_moneda_ext=invoice_info["cancela_misma_moneda_ext"],
-            condicion_iva_receptor_id=invoice_info["condicion_iva_receptor_id"],
+            invoice_info["cancela_misma_moneda_ext"],
+            invoice_info["condicion_iva_receptor_id"],
         )
 
     def wsmtxca_pyafipws_create_invoice(self, ws, invoice_info):
@@ -58,8 +60,8 @@ class AccountMove(models.Model):
             invoice_info["moneda_id"],
             invoice_info["moneda_ctz"],
             invoice_info["obs_generales"],
-            cancela_misma_moneda_ext=invoice_info["cancela_misma_moneda_ext"],
-            condicion_iva_receptor_id=invoice_info["condicion_iva_receptor_id"],
+            invoice_info["cancela_misma_moneda_ext"],
+            invoice_info["condicion_iva_receptor_id"],
         )
 
     def wsfex_pyafipws_create_invoice(self, ws, invoice_info):
@@ -85,8 +87,8 @@ class AccountMove(models.Model):
             invoice_info["idioma_cbte"],
             invoice_info["incoterms_ds"],
             invoice_info["fecha_pago"],
-            cancela_misma_moneda_ext=invoice_info["cancela_misma_moneda_ext"],
-            condicion_iva_receptor_id=invoice_info["condicion_iva_receptor_id"],
+            invoice_info["cancela_misma_moneda_ext"],
+            invoice_info["condicion_iva_receptor_id"],
         )
 
     def wsbfe_pyafipws_create_invoice(self, ws, invoice_info):
@@ -111,8 +113,8 @@ class AccountMove(models.Model):
             invoice_info["moneda_id"],
             invoice_info["moneda_ctz"],
             invoice_info["fecha_venc_pago"],
-            cancela_misma_moneda_ext=invoice_info["cancela_misma_moneda_ext"],
-            condicion_iva_receptor_id=invoice_info["condicion_iva_receptor_id"],
+            invoice_info["cancela_misma_moneda_ext"],
+            invoice_info["condicion_iva_receptor_id"],
         )
 
     def base_map_invoice_info(self):
@@ -202,6 +204,10 @@ class AccountMove(models.Model):
         invoice_info["afip_associated_period_to"] = self.afip_associated_period_to
         _logger.warning("*********************************************")
         _logger.warning("*********************************************")
-        _logger.warning(invoice_info)
-       
+        
+        _logger.warning(f"Datos enviados a WSFE: {invoice_info}")
+        _logger.warning(f"Responsabilidad fiscal: {self.partner_id.l10n_ar_afip_responsibility_type_id}")
         return invoice_info
+
+    def wsfe_request_autorization(self, ws):
+        ws.CAESolicitar()
