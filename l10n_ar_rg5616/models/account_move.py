@@ -5,6 +5,7 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 from odoo.tools import float_repr
+
 # from odoo.addons.l10n_ar_afipws_fe.afip_utils import get_invoice_number_from_response
 import base64
 
@@ -13,9 +14,17 @@ import json
 import logging
 import sys
 import traceback
-from datetime import datetime
+from datetime import datetime, date
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
+
+
+try:
+    from pysimplesoap.client import SoapFault
+except ImportError:
+    _logger.debug("Can not `from pyafipws.soap import SoapFault`.")
+_
 
 
 class AccountMove(models.Model):
@@ -53,3 +62,5 @@ class AccountMove(models.Model):
                 else:
                     default_value = "N"
             move.l10n_ar_payment_foreign_currency = default_value
+
+    

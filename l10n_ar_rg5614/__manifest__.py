@@ -13,7 +13,7 @@
     "assets": {
         "web.assets_backend": [],
         "web.assets_qweb": [
-            "l10n_ar_5614_ee/static/src/xml/pos_ticket.xml",
+            "l10n_ar_rg5614/static/src/xml/pos_tickets.xml",
         ],
     },
     "application": False,
